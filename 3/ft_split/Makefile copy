@@ -1,0 +1,42 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -g
+
+BIN     := ./bin
+SRC     := ./src/*.c
+INCLUDE := ./include
+
+EXECUTABLE  := ft_split
+
+OBJ = $(SRC:%.c=%.o)
+
+INPUT=NO-DATA-INPUT Lorem Ipsum is simply dummy text
+override INPUT-NO=NO-OVER-RIDE Lorem Ipsum is simply dummy text
+
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(SRC)
+	@echo "Compiling..."
+	@$(CC) $(CFLAGS) $^ -o $(BIN)/$(EXECUTABLE)
+
+run: clean all
+	clear
+	@echo Clear screen...
+	@echo NEW RUN NEW RUN NEW RUN NEW RUN NEW RUN
+	@echo INPUT = $(INPUT)
+	@echo INPUT-NO = $(INPUT-NO)
+	@echo Runing...
+	$(BIN)/$(EXECUTABLE) "$(INPUT)"
+	$(BIN)/$(EXECUTABLE) "$(INPUT-NO)"
+
+clean:
+	@echo Cleaning...
+	@rm -f $(BIN)/$(EXECUTABLE)
+
+# Overrides command line arguments
+option_one = did_override
+# Does not override command line arguments
+override option_two = not_override
+overtest: 
+	@echo $(option_one)
+	@echo $(option_two)
+#rm -f $(OBJ)
